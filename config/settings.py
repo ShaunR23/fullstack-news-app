@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    'https://fullstack-news-app-sr23.herokuapp.com/'
+    'https://fullstack-news-app-sr23.herokuapp.com/',
 ]
 
 
