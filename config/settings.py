@@ -42,12 +42,21 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
    
 
     'rest_framework',
-    
+    'rest_framework.authtoken',
+    'rest_auth',
+    'allauth',
+    'allauth.account',
+  
+    'rest_auth.registration', 
+
     'articles.apps.ArticlesConfig',
     'frontend.apps.FrontendConfig',
+    'accounts.apps.AccountsConfig',
+    'api.apps.ApiConfig',
 ]
 
 MIDDLEWARE = [
@@ -136,6 +145,11 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+AUTH_USER_MODEL = 'accounts.User'
+
+
+
 #static file directories
 # https://docs.djangoproject.com/en/4.0/ref/settings/#staticfiles-dirs
 STATICFILES_DIRS = (os.path.join(BASE_DIR,'frontend/static/build/static'),)
@@ -143,3 +157,5 @@ REACT_APP_DIR = os.path.join(BASE_DIR, 'frontend/static')
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE ='whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+SITE_ID = 1

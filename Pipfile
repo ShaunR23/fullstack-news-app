@@ -8,6 +8,11 @@ django = "~=3.2.12"
 django-rest-framework = "*"
 whitenoise = "*"
 gunicorn = "*"
+pillow = "*"
+django-rest-auth = "*"
+django-rest-authtoken = "*"
+django-rest-allauth = "*"
+django-allauth = "*"
 
 [dev-packages]
 
