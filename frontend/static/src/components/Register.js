@@ -52,7 +52,13 @@ function Register(props) {
             const data = await response.json();
             Cookies.set('Authorization', `Token ${data.key}`);
             props.setAuth(true);
-            props.setAccount(false);
+            setState({
+                username: '',
+                email: '',
+                password1: '',
+                password2: '',
+            })
+           
         }
     }
 

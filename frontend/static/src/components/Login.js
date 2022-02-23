@@ -4,11 +4,11 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
 
 function Login(props) {
-
+    const [auth,setAuth] = useState('');
     const [state, setState] = useState({
         username: '',
         password: '',
-        email: '',
+       
     })
 
     const handleInput = (event) => {
@@ -37,15 +37,41 @@ function Login(props) {
             body: JSON.stringify(state),
         }
 
-        const response = await fetch('/rest-auth/login', options).catch(handleError)
+        const response = await fetch('/rest-auth/login/', options).catch(handleError)
         if(!response.ok) {
             throw new Error("Network response no ok!");
         }else {
             const data = await response.json();
             Cookies.set('Authorization', `Token ${data.key}`);
-            PaymentResponse.setAuth(true);
+            props.setAuth(true);
+            setState({
+                username: '',
+                password: ''
+            })
         }
     }
+
+    const handleLogout = async event => {
+        event.preventDefault();
+
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': Cookies.get('csrftoken'),
+            },
+        }
+
+        const response = await fetch('/rest-auth/logout/', options).catch(
+            handleError
+        )
+
+        const data = await response.json();
+        Cookies.remove('Authorization', `Token ${data.key}`);
+        props.setAuth(false);
+    }
+
+
     return(
         <Form onSubmit={handleSubmit}>
             <Form.Label htmlFor="username">Username</Form.Label>
@@ -57,15 +83,7 @@ function Login(props) {
                 onChange={handleInput}
                 value={state.username}
             />
-            <Form.Label htmlFor="email">Email</Form.Label>
-            <Form.Control
-                id='email'
-                name='email'
-                type='email'
-                required
-                onChange={handleInput}
-                value={state.email}
-            />
+           
             <Form.Label htmlFor='password'>Password</Form.Label>
             <Form.Control
                 id='password'
@@ -76,6 +94,7 @@ function Login(props) {
                 value={state.password}
             />
             <Button type="submit">Login</Button>
+            <Button type="submit" onClick={handleLogout}>Logout</Button>
             </Form>
     )
 }

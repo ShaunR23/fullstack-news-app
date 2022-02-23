@@ -30,7 +30,12 @@ ALLOWED_HOSTS = [
     'localhost',
     'fullstack-news-app-sr23.herokuapp.com',
 ]
-
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
 
 # Application definition
 
