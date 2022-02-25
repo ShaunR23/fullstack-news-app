@@ -3,18 +3,17 @@ import { Nav } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import {useState} from "react"
 import App from "./App";
+import { NavLink, useOutletContext } from "react-router-dom";
 
-
-
-function Header({setSelection}) {
+function Header() {
   return (
     <Navbar bg="dark" variant="dark">
     <Container>
     <Nav className="me-auto">
-      <Nav.Link onClick={() => setSelection('login')}> Login </Nav.Link>
-      <Nav.Link onClick={() => setSelection('articleList')}>Article List</Nav.Link>
-      <Nav.Link onClick={() => setSelection('articleForm')}>Article Form</Nav.Link>
-      <Nav.Link onClick={() => setSelection('createArticle')}>Create Article</Nav.Link>
+      <Nav.Link as={NavLink} to= '/login' className='nav-link'> Login </Nav.Link>
+      <Nav.Link as={NavLink} to='/articles'>Articles</Nav.Link>
+      <Nav.Link as={NavLink} to='/articleForm'>Article Form</Nav.Link>
+      <Nav.Link as={NavLink} to='/register'>Register</Nav.Link>
     </Nav>
     </Container>
   </Navbar>

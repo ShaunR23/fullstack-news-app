@@ -31,6 +31,9 @@ ALLOWED_HOSTS = [
     'fullstack-news-app-sr23.herokuapp.com',
 ]
 REST_FRAMEWORK = {
+    'DEFAULT_PERMISSIONS_CLASSES': [
+            'rest_framework.permissions.IsAuthenticated',
+        ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
@@ -55,7 +58,6 @@ INSTALLED_APPS = [
     'rest_auth',
     'allauth',
     'allauth.account',
-  
     'rest_auth.registration', 
 
     'articles.apps.ArticlesConfig',

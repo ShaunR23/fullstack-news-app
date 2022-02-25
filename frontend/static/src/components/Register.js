@@ -2,10 +2,12 @@ import { useState } from 'react';
 import Cookies from 'js-cookie';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
+import { useOutletContext } from "react-router-dom";
 
 
 
 function Register(props) {
+    const navigate = useOutletContext();
     const [state, setState] = useState({
         username: '',
         email: '',
@@ -68,6 +70,7 @@ return (
         <Form onSubmit={handleSubmit}>
             <Form.Label htmlFor='username'>Username</Form.Label>
             <Form.Control
+                className='w-50'
                 type="text"
                 id="username"
                 name='username'
@@ -77,6 +80,7 @@ return (
             />
             <Form.Label htmlFor='email'>Email</Form.Label>
             <Form.Control
+                className='w-50'
                 type='email'
                 id='email'
                 name='email'
@@ -86,6 +90,7 @@ return (
             />
             <Form.Label htmlFor='password'>Password</Form.Label>
             <Form.Control
+                className='w-50'
                 type="password"
                 id="password1"
                 name='password1'
@@ -95,6 +100,7 @@ return (
             />
             <Form.Label htmlFor='password'>Please type your password again</Form.Label>
             <Form.Control
+                className='w-50'
                 type="password"
                 id="password2"
                 name='password2'
@@ -102,7 +108,7 @@ return (
                 required
                 value={state.password2}
             />
-            <Button type='submit'>Create Account</Button>
+            <Button variant="success" size="sm" type='submit'>Create Account</Button>
         </Form>
     </div>
 
