@@ -9,6 +9,7 @@ import ArticleList from './components/ArticleList';
 import Register from './components/Register';
 import ArticleForm from './components/ArticleForm';
 import reportWebVitals from './reportWebVitals';
+import AdminList from "./components/AdminList";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -19,6 +20,9 @@ ReactDOM.render(
         <Route path='articles' element={<ArticleList />} />
         <Route path='articleform' element={<ArticleForm />} />
         <Route path='register' element={<Register />} />
+        <Route path='admin' element={<AdminList />} />
+        
+
       </Route>
     </Routes>
     </BrowserRouter>

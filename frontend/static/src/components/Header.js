@@ -5,19 +5,36 @@ import {useState} from "react"
 import App from "./App";
 import { NavLink, useOutletContext } from "react-router-dom";
 
-function Header() {
-  return (
-    <Navbar bg="dark" variant="dark">
-    <Container>
-    <Nav className="me-auto">
-      <Nav.Link as={NavLink} to= '/login' className='nav-link'> Login </Nav.Link>
-      <Nav.Link as={NavLink} to='/articles'>Articles</Nav.Link>
-      <Nav.Link as={NavLink} to='/articleForm'>Article Form</Nav.Link>
-      <Nav.Link as={NavLink} to='/register'>Register</Nav.Link>
-    </Nav>
-    </Container>
-  </Navbar>
-  );
+function Header(props, {handleLogout}) {
+
+
+const navHeader = (
+  <Navbar bg="dark" variant="dark">
+      <Container>
+       <Nav className="me-auto">
+
+        <Nav.Link as={NavLink} to='/articles'> View Articles</Nav.Link>
+         <Nav.Link as={NavLink} to='/articleForm'> Create Articles</Nav.Link>
+          <Nav.Link as={NavLink} to= '/login'> Login/Logout </Nav.Link>
+         <Nav.Link as={NavLink} to='/register'>Create an Account</Nav.Link>
+         <Nav.Link as={NavLink} to='/admin'> Review Articles(admin)</Nav.Link>
+         
+         
+       </Nav>
+       </Container>
+      </Navbar>
+)
+
+
+return (
+  <nav>
+    {navHeader}
+      
+  </nav>
+)
 }
+//   return (
+//     
+// }
 
 export default Header;

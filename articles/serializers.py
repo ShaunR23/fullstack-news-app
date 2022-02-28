@@ -10,3 +10,10 @@ class ArticleAuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
         fields = '__all__'
+
+class ArticleAdminSerializer(serializers.ModelSerializer):
+    creator = serializers.ReadOnlyField(source = 'author.username')
+    class Meta:
+        model = Article
+        fields = '__all__'
+

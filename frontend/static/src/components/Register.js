@@ -70,7 +70,7 @@ return (
         <Form onSubmit={handleSubmit}>
             <Form.Label htmlFor='username'>Username</Form.Label>
             <Form.Control
-                className='w-50'
+                className='w-25'
                 type="text"
                 id="username"
                 name='username'
@@ -80,7 +80,7 @@ return (
             />
             <Form.Label htmlFor='email'>Email</Form.Label>
             <Form.Control
-                className='w-50'
+                className='w-25'
                 type='email'
                 id='email'
                 name='email'
@@ -90,7 +90,7 @@ return (
             />
             <Form.Label htmlFor='password'>Password</Form.Label>
             <Form.Control
-                className='w-50'
+                className='w-25'
                 type="password"
                 id="password1"
                 name='password1'
@@ -100,7 +100,7 @@ return (
             />
             <Form.Label htmlFor='password'>Please type your password again</Form.Label>
             <Form.Control
-                className='w-50'
+                className='w-25'
                 type="password"
                 id="password2"
                 name='password2'
