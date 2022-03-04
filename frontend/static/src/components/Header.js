@@ -1,40 +1,66 @@
-import { Navbar } from "react-bootstrap";
-import { Nav } from "react-bootstrap";
-import { Container } from "react-bootstrap";
-import {useState} from "react"
+import { NavLink } from "react-router-dom";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import App from "./App";
-import { NavLink, useOutletContext } from "react-router-dom";
 
-function Header(props, {handleLogout}) {
-
-
-const navHeader = (
-  <Navbar bg="dark" variant="dark">
+function Header({ isAuth, isAdmin, handleLogout }) {
+  const userHeader = () => (
+    <>
       <Container>
-       <Nav className="me-auto">
+        <Navbar bg="dark">
+          <Nav.Link as={NavLink} to="/">
+            Home
+          </Nav.Link>
+          <Nav.Link as={NavLink} to="/login">
+            Login
+          </Nav.Link>
+        </Navbar>
+      </Container>
+    </>
+  );
 
-        <Nav.Link as={NavLink} to='/articles'> View Articles</Nav.Link>
-         <Nav.Link as={NavLink} to='/articleForm'> Create Articles</Nav.Link>
-          <Nav.Link as={NavLink} to= '/login'> Login/Logout </Nav.Link>
-         <Nav.Link as={NavLink} to='/register'>Create an Account</Nav.Link>
-         <Nav.Link as={NavLink} to='/admin'> Review Articles(admin)</Nav.Link>
-         
-         
-       </Nav>
-       </Container>
+  const authUserHeader = () => (
+    <>
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Container>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link as={NavLink} to="/">
+                Home
+              </Nav.Link>
+              <Nav.Link as={NavLink} to="/user/articles">
+                My Articles
+              </Nav.Link>
+              <Nav.Link as={NavLink} to="/user/articles/new">
+                Create Article
+              </Nav.Link>
+            </Nav>
+            <Nav>
+              {isAdmin && (
+                <Nav.Link as={NavLink} to="/articles/new">
+                  Admin
+                </Nav.Link>
+              )}
+              <Nav.Link onClick={() => handleLogout()}>Logout</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
       </Navbar>
-)
+    </>
+  );
 
+  const navHeader = (
+    <Navbar bg="dark" variant="dark">
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Container>
+        <Nav className="me-auto">
+          {isAuth ? authUserHeader() : userHeader()}
+        </Nav>
+      </Container>
+    </Navbar>
+  );
 
-return (
-  <nav>
-    {navHeader}
-      
-  </nav>
-)
+  return <nav>{navHeader}</nav>;
 }
-//   return (
-//     
-// }
 
 export default Header;

@@ -3,56 +3,62 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import ArticleForm from "./ArticleForm";
 import { useOutletContext } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import { Container, Modal } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import Draft from "./Draft";
 
-function ArticleList({handleError, title, state,getArticle}) {
-    const [articleList, setArticleList] = useState([]);
-    const navigate = useOutletContext();
+import { handleError } from "./../utils.js";
 
+function ArticleList(props, {editMode}) {
+  const [articles, setArticles] = useState(props.articles);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-    useEffect(() => {
-        const getArticles = async () =>{
-          const response = await fetch('/api/v1/articles/').catch(handleError);
-          if(!response.ok){
-            throw new Error('Network response was not OK!')  }else{
-              const data = await response.json();
-              setArticleList(data);
-            }
-          }
-          getArticles();
-    }, []);
+  useEffect(() => {
+    const getArticles = async () => {
+      const response = await fetch("/api/v1/articles/").catch(handleError);
+      if (!response.ok) {
+        throw new Error("Network response was not OK!");
+      } else {
+        const data = await response.json();
+        setArticles(data);
+      }
+    };
+    getArticles();
+  }, []);
 
-    
-    // const getArticle = (e) => {
-    //     e.preventDefault()
-    //     {state.body}
-    // }
-  const articleHTML = articleList.map((article) => (
-    <article class='article' key={article.id}>
-      <Card style={{ width: "18rem" }}>
+  const articlesHTML = articles.map((article) => (
+    <article className="article-cards text-center col col-md-3" key={article.id}>
+      <Card>
+        <h2>{article.title}</h2>
         <Card.Img variant="top" src={article.image} />
         <Card.Body>
-          <h2>{article.title}</h2>
-          <h6>{article.body}</h6>
-          {/* <Button value={title} onClick={getArticle}>Read more...</Button> */}
+          <p>{article.summary}</p>
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Body>{article.body}</Modal.Body>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal>
+          <Button className="articleBtn" variant="primary" onClick={handleShow}>
+            Read Article
+          </Button>
         </Card.Body>
       </Card>
     </article>
-    
-    ));
+  ));
 
-    
-  return( 
-      <>
-  <div class='article-display'>
-  {articleHTML};
-  </div>
-  <div>
-      <Draft />
-  </div>
-  </>
-  )}
+  return (
+    <>
+      <div className="container content-row">
+        <div className="row">{articlesHTML};</div>
+      </div>
+    </>
+  );
+}
+
+ArticleList.defaultProps = {
+  articles: [],
+};
 
 export default ArticleList;

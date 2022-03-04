@@ -31,9 +31,9 @@ ALLOWED_HOSTS = [
     'fullstack-news-app-sr23.herokuapp.com',
 ]
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSIONS_CLASSES': [
-            'rest_framework.permissions.IsAuthenticated',
-        ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
@@ -51,14 +51,14 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-   
+
 
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
     'allauth',
     'allauth.account',
-    'rest_auth.registration', 
+    'rest_auth.registration',
 
     'articles.apps.ArticlesConfig',
     'frontend.apps.FrontendConfig',
@@ -155,18 +155,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
 
-#Managing Files
+# Managing Files
 # https://docs.djangoproject.com/en/4.0/topics/files/#managing-files
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-#static file directories
+# static file directories
 # https://docs.djangoproject.com/en/4.0/ref/settings/#staticfiles-dirs
-STATICFILES_DIRS = (os.path.join(BASE_DIR,'frontend/static/build/static'),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'frontend/static/build/static'),)
 REACT_APP_DIR = os.path.join(BASE_DIR, 'frontend/static')
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE ='whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 SITE_ID = 1
+
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'accounts.serializers.UserDetailsSerializer',
+    'TOKEN_SERIALIZER': 'accounts.serializers.TokenSerializer',
+}
