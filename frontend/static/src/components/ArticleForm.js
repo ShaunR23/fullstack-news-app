@@ -14,8 +14,6 @@ const INITIAL_STATE = {
   phase: "",
 };
 
-
-
 function ArticleForm(props) {
   const navigate = useOutletContext();
   const [phase, setPhase] = useState("");
@@ -54,28 +52,20 @@ function ArticleForm(props) {
   };
 
   const handleUpdate = async (e) => {
-    const pk = state.id
-    // this is where you write your put request (updating a preexiting article)
+    const pk = state.id;
+    e.preventDefault()
     
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("title", state.title);
-    formData.append("body", state.body);
-    formData.append("image", state.file);
-    formData.append("summary", state.summary);
 
     const options = {
-      method: "PUT",
+      method: "PATCH",
       headers: {
+        "Content-type": "application/JSON",
         "X-CSRFToken": Cookies.get("csrftoken"),
       },
-      body: formData,
+      body: JSON.stringify(INITIAL_STATE)
     };
 
-     await fetch(`/api/v1/user/articles/${pk}/`, options).catch(
-      handleError
-    );
-
+    await fetch(`/api/v1/user/articles/${pk}/`, options).catch(handleError);
   };
 
   const handleImage = (e) => {
@@ -114,7 +104,7 @@ function ArticleForm(props) {
               onChange={handleInput}
               value={state.body}
             />
-             <Form.Label htmlFor="summary">Summary</Form.Label>
+            <Form.Label htmlFor="summary">Summary</Form.Label>
             <Form.Control
               rows={3}
               id="summary"
@@ -130,18 +120,13 @@ function ArticleForm(props) {
               type="file"
               onChange={handleImage}
             />
-            {/* <Button type="submit" className="delete-draft">
-              Submit Article
-            </Button> */}
+
             <Button type="submit" onClick={() => setPhase("DRAFT")}>
               Save
             </Button>
             <Button type="submit" onClick={() => setPhase("SUBMIT")}>
               Submit
             </Button>
-            {/* <Button className="editButton" onClick={() => setEdit(true)}>
-//           Edit
-//         </Button> */}
           </Form>
         </div>
       </div>

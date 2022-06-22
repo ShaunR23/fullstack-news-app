@@ -3,7 +3,6 @@ from rest_framework import generics
 from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly
 from .models import Article
 from .serializers import ArticleSerializer, UserArticleSerializer, ArticleAdminSerializer
-from rest_framework import generics
 from .permissions import IsAuthorOrReadOnly
 
 
